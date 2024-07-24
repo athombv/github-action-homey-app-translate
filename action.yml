@@ -1,0 +1,12 @@
+# action.yml
+name: 'Homey App — Translate'
+description: 'Translate an app for Homey'
+inputs:
+  openai_api_key:
+    description: 'OpenAI API Key'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.openai_api_key }}
