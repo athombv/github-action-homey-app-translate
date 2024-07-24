@@ -13,16 +13,31 @@ An OpenAI API Key. You can create an API Key on https://platform.openai.com/api-
 ```name: Translate Homey App
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 jobs:  
     main:
-      name: Translate Homey App
+      name: Translate App
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
-        - uses: athombv/github-action-homey-app-translate@master
+        - name: Translate Homey App 
+          uses: athombv/github-action-homey-app-translate@master
           with:
-            openai_api_key: '...'
+            openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+
+        - name: Commit, Push & Create Pull Request
+          env:
+            GH_TOKEN: ${{ github.token }}
+          run: |
+            git config --local user.email "sysadmin+githubactions@athom.com"
+            git config --local user.name "Homey Github Actions Bot"
+            
+            git checkout -b feature/openai-translations
+            
+            git add -A
+            git commit -m "Automatic translations with OpenAI"
+            git push --set-upstream origin feature/openai-translations
+
+            gh pr create --fill
 ```
