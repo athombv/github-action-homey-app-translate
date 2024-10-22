@@ -4,13 +4,16 @@ This GitHub Action will translate the current Homey app using OpenAI.
 
 ## Inputs
 
-## openai_api_key
+### openai_api_key
 
 An OpenAI API Key. You can create an API Key on https://platform.openai.com/api-keys.
 
 ## Example usage
 
-```name: Translate Homey App
+The workflow has to be created on GitHub or checked in to the folder `.github/workflows` on the ***default*** branch, in order to be manually triggered.
+
+```YAML
+name: Translate Homey App
 
 on:
   workflow_dispatch:
